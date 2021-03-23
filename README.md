@@ -15,5 +15,6 @@ Student management system allows users to manage students and their marks.
 7)npm install
 8)php artisan migrate
 9)npm run production
-10)php artisan serve or setup a virtual host
+10)php artisan key:generate
+11)php artisan serve or setup a virtual host
 ```
