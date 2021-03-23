@@ -15,6 +15,9 @@
     <a style="margin: 19px;" href="{{ route('student.create')}}" class="btn btn-primary">New student</a>
     </div>   
   <table class="table table-striped">
+    @if(count($students)==0)
+      <p style="text-align:center;">No results found</p>
+    @else
     <thead>
         <tr>
           <td>ID</td>
@@ -32,7 +35,7 @@
             <td>{{$student->name}}</td>
             <td>{{$student->age}}</td>
             <td>{{$student->gender}}</td>
-            <td>{{$student->reporting_teacher}}</td>
+            <td>{{ucfirst($student->reporting_teacher)}}</td>
             <td>
                 <a href="{{ route('student.edit',$student->id)}}" class="btn btn-primary">Edit</a>
             </td>
@@ -46,6 +49,7 @@
         </tr>
         @endforeach
     </tbody>
+    @endif
   </table>
 <div>
 </div>

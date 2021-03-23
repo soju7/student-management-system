@@ -7,6 +7,8 @@ use App\Student;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreMarkRequest;
 use App\Http\Requests\UpdateMarkRequest;
+use App\Repositories\Interfaces\MarkInterface;
+use App\Repositories\Interfaces\StudentInterface;
 
 class MarkController extends Controller
 {
@@ -15,9 +17,16 @@ class MarkController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    private $markRepository;
+
+    public function __construct(MarkInterface $markInterface,StudentInterface $studentInterface)
+    {
+        $this->markRepository = $markInterface;
+        $this->studentRepository = $studentInterface;
+    }
     public function index()
     {
-        $marks = Mark::all();
+        $marks=$this->markRepository->all();
         return view('marks.index',compact('marks'));
     }
 
@@ -28,8 +37,8 @@ class MarkController extends Controller
      */
     public function create()
     {
-       $students = Student::select('id','name')->get();
-       $terms=['one','two'];
+       $students = $this->studentRepository->all();
+       $terms=$this->studentRepository->getTerms();
        return view('marks.create',compact('terms','students'));
     }
 
@@ -41,25 +50,14 @@ class MarkController extends Controller
      */
     public function store(StoreMarkRequest $request)
     {
-        // $request->validate([
-        //     'student_id'=>'required',
-        //     'maths'=>'required|integer',
-        //     'science'=>'required|integer',
-        //     'history'=>'required|integer',
-        //     'term'=>'required'
-        // ]);
-
-
-        $mark = new Mark([
+        $mark = $this->markRepository->create([
             'student_id' => $request->get('student_id'),
             'maths' => $request->get('maths'),
             'science' => $request->get('science'),
             'history' => $request->get('history'),
             'term' => $request->get('term')
         ]);
-        $mark->save();
-
-        return redirect('/marks')->with('success', "Mark saved for ".$mark->student->name);
+        return redirect('/marks')->with('success', "Mark saved");
     }
 
     /**
@@ -81,9 +79,9 @@ class MarkController extends Controller
      */
     public function edit($id)
     {
-        $terms=['one','two'];
-        $mark = Mark::find($id);
-        $students = Student::select('id','name')->get();
+        $terms=$this->studentRepository->getTerms();
+        $mark=$this->markRepository->find($id);
+        $students = $this->studentRepository->all();
         return view('marks.edit', compact('mark','students','terms'));    
     }
 
@@ -96,22 +94,13 @@ class MarkController extends Controller
      */
     public function update(UpdateMarkRequest $request, $id)
     {
-        // $request->validate([
-        //     'student_id'=>'required',
-        //     'maths'=>'required|integer',
-        //     'science'=>'required|integer',
-        //     'history'=>'required|integer',
-        //     'term'=>'required'
-        // ]);
-
-        $mark = Mark::find($id);
-        $mark->student_id =  $request->get('student_id');
-        $mark->maths = $request->get('maths');
-        $mark->science = $request->get('science');
-        $mark->history = $request->get('history');
-        $mark->save();
-
-        return redirect('/marks')->with('success', "Mark updated for ".$mark->student->name);
+        $mark=$this->markRepository->update([
+            'student_id'=>$request->get('student_id'),
+            'maths'=>$request->get('maths'),
+            'science'=>$request->get('science'),
+            'history'=>$request->get('history')
+        ],$id);
+        return redirect('/marks')->with('success', "Mark updated");
     }
 
     /**
@@ -122,9 +111,7 @@ class MarkController extends Controller
      */
     public function destroy($id)
     {
-        $mark = Mark::find($id);
-        $mark->delete();
-
-        return redirect('/marks')->with('success', "Mark deleted for ".$mark->student->name);
+        $mark =$this->markRepository->delete($id);
+        return redirect('/marks')->with('success', "Mark deleted");
     }
 }

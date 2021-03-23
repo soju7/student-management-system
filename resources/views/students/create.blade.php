@@ -22,7 +22,7 @@
           </div>
           <div class="form-group">
               <label for="last_name">Age:</label>
-              <input type="number" class="form-control" name="age" value="{{ old('age')}}" required/>
+              <input type="number" class="form-control" name="age" value="{{ old('age')}}" required min="5" max="18"/>
           </div>
           <div class="form-group">
           <label>Gender:</label>
@@ -41,7 +41,7 @@
             <select class="form-control" id="reporting_teacher" name="reporting_teacher" required>
               <option value="">select a teacher</option>
               @foreach($teachers as $teacher)
-              <option {{ old('reporting_teacher')== $teacher ? 'selected' : '' }} value="{{$teacher}}">{{$teacher}}</option>
+              <option {{ old('reporting_teacher')== $teacher ? 'selected' : '' }} value="{{$teacher}}">{{ucfirst($teacher)}}</option>
               @endforeach
             </select>
           </div>                         

@@ -9,9 +9,11 @@
         <li class="nav-item {{ request()->is('student*') ? 'active' : '' }}">
           <a class="nav-link" href="{{ route('student.index') }}">Students</a>
         </li>
+        @if($students_count)
         <li class="nav-item {{ request()->is('mark*') ? 'active' : '' }}">
           <a class="nav-link" href="{{ route('mark.index') }}">Marks</a>
         </li>
+        @endif
       </ul>
     </div>
   </nav>

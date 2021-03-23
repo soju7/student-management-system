@@ -15,7 +15,10 @@
     <a style="margin: 19px;" href="{{ route('mark.create')}}" class="btn btn-primary">New mark</a>
     </div>   
   <table class="table table-striped">
-    <thead>
+        @if(count($marks)==0)
+          <p style="text-align:center;">No results found</p>
+        @else
+        <thead>
         <tr>
           <td>ID</td>
           <td>Name</td>
@@ -36,7 +39,7 @@
             <td>{{$mark->maths}}</td>
             <td>{{$mark->science}}</td>
             <td>{{$mark->history}}</td>
-            <td>{{$mark->term}}</td>
+            <td>{{ucfirst($mark->term)}}</td>
             <td>{{$mark->total_marks}}</td>
             <td>{{ \Carbon\Carbon::parse($mark->created_at)->isoFormat('MMM Do YYYY h:mm a')}}</td>
             <td>
@@ -51,7 +54,10 @@
             </td>
         </tr>
         @endforeach
+        
     </tbody>
+        @endif
+
   </table>
 <div>
 </div>

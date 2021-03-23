@@ -20,11 +20,11 @@
           @method('PUT')
           <div class="form-group">    
               <label for="name">Name:</label> 
-              <input type="text" class="form-control" name="name" value={{ old('name', $student->name) }} required  />
+              <input type="text" class="form-control" value="{{ old('name', $student->name) }}" name="name"  required  />
           </div>
           <div class="form-group">
               <label for="age">Age:</label> 
-              <input type="number" class="form-control" name="age" value={{ old('age', $student->age) }} required/>
+              <input type="number" class="form-control" name="age" value="{{ old('age', $student->age) }}" required min="5" max="18"/>
           </div>
           <div class="form-group">
           <label>Gender:</label>
@@ -43,7 +43,7 @@
             <select class="form-control" id="reporting_teacher" name="reporting_teacher" required>
               <option value="">select a teacher</option>
               @foreach($teachers as $teacher)
-              <option {{ old('reporting_teacher', $student->reporting_teacher) == $teacher ? 'selected' : '' }} value="{{$teacher}}">{{$teacher}}</option>
+              <option {{ old('reporting_teacher', $student->reporting_teacher) == $teacher ? 'selected' : '' }} value="{{$teacher}}">{{ucfirst($teacher)}}</option>
               @endforeach
             </select>
           </div>                         

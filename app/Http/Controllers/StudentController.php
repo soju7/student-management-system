@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Student;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreStudentRequest;
+use App\Http\Requests\UpdateStudentRequest;
+use App\Repositories\Interfaces\StudentInterface;
 
 class StudentController extends Controller
 {
@@ -12,9 +15,16 @@ class StudentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    private $studentRepository;
+
+    public function __construct(StudentInterface $studentInterface)
+    {
+        $this->studentRepository = $studentInterface;
+    }
+
     public function index()
     {
-        $students = Student::all();
+        $students = $this->studentRepository->all();
         return view('students.index',compact('students'));
     }
 
@@ -25,7 +35,7 @@ class StudentController extends Controller
      */
     public function create()
     {
-        $teachers=['katie','max','alex'];
+        $teachers=$this->studentRepository->getTeachers();
         return view('students.create',compact('teachers'));
     }
 
@@ -35,22 +45,14 @@ class StudentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreStudentRequest $request)
     {
-        $request->validate([
-            'name'=>'required',
-            'age'=>'required|integer',
-            'gender'=>'required',
-            'reporting_teacher'=>'required'
-        ]);
-
-        $student = new Student([
+        $student=$this->studentRepository->create([
             'name' => $request->get('name'),
             'age' => $request->get('age'),
             'gender' => $request->get('gender'),
             'reporting_teacher' => $request->get('reporting_teacher')
         ]);
-        $student->save();
 
         return redirect('/students')->with('success', 'Student saved!');
     }
@@ -73,9 +75,9 @@ class StudentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {
-        $student = Student::find($id);
-        $teachers=['katie','max','alex'];
+    { 
+        $student = $this->studentRepository->find($id);
+        $teachers=$this->studentRepository->getTeachers();
         return view('students.edit', compact('student','teachers'));    
     }
 
@@ -86,22 +88,14 @@ class StudentController extends Controller
      * @param  \App\Student  $student
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        $request->validate([
-            'name'=>'required',
-            'age'=>'required|integer',
-            'gender'=>'required',
-            'reporting_teacher'=>'required'
-        ]);
-
-        $student = Student::find($id);
-        $student->name =  $request->get('name');
-        $student->age = $request->get('age');
-        $student->gender = $request->get('gender');
-        $student->reporting_teacher = $request->get('reporting_teacher');
-        $student->save();
-
+    public function update(UpdateStudentRequest $request, $id)
+    {   
+        $student = $this->studentRepository->update([
+            'name' => $request->get('name'),
+            'age' => $request->get('age'),
+            'gender' => $request->get('gender'),
+            'reporting_teacher' => $request->get('reporting_teacher')
+        ],$id);
         return redirect('/students')->with('success', 'Student updated!');
     }
 
@@ -113,9 +107,7 @@ class StudentController extends Controller
      */
     public function destroy($id)
     {
-        $student = Student::find($id);
-        $student->delete();
-
+        $this->studentRepository->delete($id);
         return redirect('/students')->with('success', 'Student deleted!');
     }
 }

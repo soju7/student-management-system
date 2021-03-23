@@ -32,7 +32,7 @@
               <select class="form-control" id="term" name="term" required>
               <option value="">select a term</option>
               @foreach($terms as $term)
-              <option value="{{$term}}" {{ old('term', $mark->term) == $term ? 'selected' : '' }}>{{$term}}</option>
+              <option value="{{$term}}" {{ old('term', $mark->term) == $term ? 'selected' : '' }}>{{ucfirst($term)}}</option>
               @endforeach
             </select>
           </div>
