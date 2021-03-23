@@ -18,21 +18,21 @@
           @csrf
           <div class="form-group">    
               <label for="first_name">Name:</label>
-              <input type="text" class="form-control" name="name" required/>
+              <input type="text" class="form-control" name="name" value="{{ old('name')}}" required/>
           </div>
           <div class="form-group">
               <label for="last_name">Age:</label>
-              <input type="number" class="form-control" name="age" required/>
+              <input type="number" class="form-control" name="age" value="{{ old('age')}}" required/>
           </div>
           <div class="form-group">
           <label>Gender:</label>
           <br/>
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="gender" id="inlineRadio1" value="male" required>
+            <input class="form-check-input" type="radio" name="gender" id="inlineRadio1" {{ old('gender')=='male'? "checked" : "" }} value="male" required>
             <label class="form-check-label" for="inlineRadio1">Male</label>
           </div>
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="gender" id="inlineRadio2" value="female">
+            <input class="form-check-input" type="radio" name="gender" id="inlineRadio2" {{ old('gender')=='female'? "checked" : "" }} value="female">
             <label class="form-check-label" for="inlineRadio2">Female</label>
           </div>
           </div>
@@ -41,7 +41,7 @@
             <select class="form-control" id="reporting_teacher" name="reporting_teacher" required>
               <option value="">select a teacher</option>
               @foreach($teachers as $teacher)
-              <option value="{{$teacher}}">{{$teacher}}</option>
+              <option {{ old('reporting_teacher')== $teacher ? 'selected' : '' }} value="{{$teacher}}">{{$teacher}}</option>
               @endforeach
             </select>
           </div>                         

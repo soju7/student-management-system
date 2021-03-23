@@ -13,7 +13,7 @@ class CreateStudentMarksTable extends Migration
      */
     public function up()
     {
-        Schema::create('student_marks', function (Blueprint $table) {
+        Schema::create('marks', function (Blueprint $table) {
             $table->increments('id')->unsigned();
             $table->unsignedInteger('student_id');
             $table->string('maths');

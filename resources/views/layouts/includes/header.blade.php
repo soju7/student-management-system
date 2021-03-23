@@ -6,11 +6,11 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
+        <li class="nav-item {{ request()->is('student*') ? 'active' : '' }}">
           <a class="nav-link" href="{{ route('student.index') }}">Students</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Marks</a>
+        <li class="nav-item {{ request()->is('mark*') ? 'active' : '' }}">
+          <a class="nav-link" href="{{ route('mark.index') }}">Marks</a>
         </li>
       </ul>
     </div>
