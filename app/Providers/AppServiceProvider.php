@@ -24,6 +24,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        view()->share('students_count', app()->make(StudentRepository::class)->count());
+        view()->composer('*', function ($view) {
+            $view->with('students_count', app()->make(StudentRepository::class)->count());           
+        });
     }
 }
