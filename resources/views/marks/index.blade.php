@@ -36,8 +36,8 @@
         <tr>
             <td>{{$mark->id}}</td>
             <td>{{$mark->student->name}}</td>
-            <td>{{$mark->maths}}</td>
             <td>{{$mark->science}}</td>
+            <td>{{$mark->maths}}</td>            
             <td>{{$mark->history}}</td>
             <td>{{ucfirst($mark->term)}}</td>
             <td>{{$mark->total_marks}}</td>
@@ -49,7 +49,7 @@
                 <form action="{{ route('mark.destroy', $mark->id)}}" method="post">
                   @csrf
                   @method('DELETE')
-                  <button class="btn btn-danger" type="submit">Delete</button>
+                  <button class="btn btn-danger" onclick="return confirm('Are you sure?')" type="submit">Delete</button>
                 </form>
             </td>
         </tr>

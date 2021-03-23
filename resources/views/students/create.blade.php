@@ -18,11 +18,11 @@
           @csrf
           <div class="form-group">    
               <label for="first_name">Name:</label>
-              <input type="text" class="form-control" name="name" value="{{ old('name')}}" required/>
+              <input type="text" class="form-control" name="name" value="{{ old('name')}}" placeholder="please enter student name" required/>
           </div>
           <div class="form-group">
               <label for="last_name">Age:</label>
-              <input type="number" class="form-control" name="age" value="{{ old('age')}}" required min="5" max="18"/>
+              <input type="number" class="form-control" name="age" value="{{ old('age')}}" required min="5" max="18" placeholder="please enter student age"/>
           </div>
           <div class="form-group">
           <label>Gender:</label>

@@ -20,11 +20,11 @@
           @method('PUT')
           <div class="form-group">    
               <label for="name">Name:</label> 
-              <input type="text" class="form-control" value="{{ old('name', $student->name) }}" name="name"  required  />
+              <input type="text" class="form-control" value="{{ old('name', $student->name) }}" name="name"  required  placeholder="please enter student name"/>
           </div>
           <div class="form-group">
               <label for="age">Age:</label> 
-              <input type="number" class="form-control" name="age" value="{{ old('age', $student->age) }}" required min="5" max="18"/>
+              <input type="number" class="form-control" name="age" value="{{ old('age', $student->age) }}" required min="5" max="18" placeholder="please enter student age"/>
           </div>
           <div class="form-group">
           <label>Gender:</label>

@@ -36,15 +36,15 @@
           </div>
           <div class="form-group">
               <label for="maths">Maths</label>
-              <input type="number" class="form-control" name="maths" value="{{ old('maths')}}" required min="0" max="100"/>
+              <input type="number" class="form-control" name="maths" value="{{ old('maths')}}" required min="0" max="100" placeholder="please enter maths mark"/>
           </div>
           <div class="form-group">
               <label for="science">Science</label>
-              <input type="number" class="form-control" name="science" value="{{ old('science')}}" required min="0" max="100"/>
+              <input type="number" class="form-control" name="science" value="{{ old('science')}}" required min="0" max="100" placeholder="please enter science mark"/>
           </div>
           <div class="form-group">
               <label for="history">History</label>
-              <input type="number" class="form-control" name="history" value="{{ old('history')}}" required min="0" max="100"/>
+              <input type="number" class="form-control" name="history" value="{{ old('history')}}" required min="0" max="100" placeholder="please enter history mark"/>
           </div>
           
                                    

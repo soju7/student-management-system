@@ -38,15 +38,15 @@
           </div>
           <div class="form-group">
               <label for="maths">Maths</label>
-              <input type="number" class="form-control" name="maths" value={{ old('maths') ? old('maths') : $mark->maths }} required min="0" max="100" />
+              <input type="number" class="form-control" name="maths" value="{{ old('maths') ? old('maths') : $mark->maths }}" required min="0" max="100" placeholder="please enter maths mark"/>
           </div>
           <div class="form-group">
               <label for="science">Science</label>
-              <input type="number" class="form-control" name="science" required value={{ old('science') ? old('science') : $mark->science }} min="0" max="100" />
+              <input type="number" class="form-control" name="science" required value="{{ old('science') ? old('science') : $mark->science }}"" min="0" max="100" placeholder="please enter science mark"/>
           </div>
           <div class="form-group">
               <label for="history">History</label> 
-              <input type="string" class="form-control" name="history" required value={{ old('history') ? old('history') : $mark->history }} min="0" max="100" />
+              <input type="string" class="form-control" name="history" required value="{{ old('history') ? old('history') : $mark->history }}" min="0" max="100" placeholder="please enter history mark"/>
           </div>           
           <button type="submit" class="btn btn-primary">Update mark</button>
       </form>
